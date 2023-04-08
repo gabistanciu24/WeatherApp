@@ -23,10 +23,24 @@ export default {
   methods:{
     getCityWeather(){
       let firebaseDB = db.collection('cities');
-      firebaseDB.onSnaphot(snap =>{
+      firebaseDB.onSnapshot(snap =>{
         //firebase real-time event-listener
         snap.docChanges().forEach(async(doc) =>{
-          console.log(doc);
+          if(doc.type==='added'){
+            try{
+              const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${doc.doc.data().city}&units=metric&APPID=${this.APIkey}`);
+              const data = response.data;
+              firebaseDB.doc(doc.doc.id).update({
+                currentWeather: data,
+              }).then(()=>{
+                this.cities.push(doc.doc.data());
+              }).then(()=>{
+                console.log(this.cities)
+              })
+            }catch(err){
+              console.log(err);
+            }
+          }
         })
       })
     },
