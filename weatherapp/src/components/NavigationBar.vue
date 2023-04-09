@@ -5,7 +5,7 @@
       <div class="options">
         <i class="far fa-edit"></i>
         <i class="fa-sharp fa-solid fa-rotate"></i>
-        <i class="far fa-plus"></i>
+        <i @click="addCity()" class="far fa-plus"></i>
       </div>
     </nav>
   </header>
@@ -14,6 +14,11 @@
 <script>
 export default {
   name: "NavigationBar",
+  methods:{
+    addCity(){
+      this.$emit("add-city");
+    }
+  }
 };
 </script>
 

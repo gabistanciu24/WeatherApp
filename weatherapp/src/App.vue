@@ -1,7 +1,7 @@
 <template>
   <div class="main">
-    <Modal/>
-    <Navigation/>
+    <Modal v-if="modalOpen" v-on:close-modal="toggleModal" :APIkey="APIkey"/>
+    <Navigation v-on:add-city="toggleModal"/>
     <router-view v-bind:cities="cities"/>
   </div>
 </template>
@@ -21,7 +21,8 @@ export default {
   data(){
     return{
       APIkey: "3c4fa813706a1e42f0f4e99768f6e62a",
-      cities:[]
+      cities:[],
+      modalOpen: null,
     };
   },
   created(){
@@ -51,6 +52,9 @@ export default {
         })
       })
     },
+    toggleModal(){
+      this.modalOpen=!this.modalOpen;
+    }
   },
 }
 </script>

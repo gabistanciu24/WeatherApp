@@ -26,6 +26,7 @@ export default {
   padding-top:5rem;
   background-color: #31363d;
   min-height: 100vh;
+  grid-auto-rows:13rem;
 }
 
 @media (min-width:400px) {
