@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    
+  <div class="main">
+    <Navigation/>
     <router-view/>
   </div>
 </template>
@@ -8,12 +8,16 @@
 <script>
 import axios from 'axios'
 import db from "./firebase/firebaseinit";
+import Navigation from "./components/NavigationBar";
 export default {
+  components: { Navigation },
   name:"App",
+  comments:{
+    Navigation
+  },
   data(){
     return{
       APIkey: "3c4fa813706a1e42f0f4e99768f6e62a",
-      city:'Cluj',
       cities:[]
     };
   },
@@ -43,11 +47,6 @@ export default {
           }
         })
       })
-    },
-    getCurrentWeather(){
-      axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&APPID=${this.APIkey}`).then(res =>{
-        console.log(res.data);
-      });
     },
   },
 }
