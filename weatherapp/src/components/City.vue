@@ -50,14 +50,14 @@ export default {
   flex:1;
 }
 
-.weather > .span{
-  font-size: 2.1rem;
-  margin-right: 0.5rem;
+.weather > span{
+  font-size: 2.2rem;
 }
 
 .weather > img{
-  height: 1.4rem;
+  height: 3rem;
   width: auto;
+  margin-left: 1rem;
 }
 
 .city > .video{
