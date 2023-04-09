@@ -3,9 +3,9 @@
     <nav>
       <span>Daily Weather</span>
       <div class="options">
-        <i class="far fa-edit"></i>
+        <i @click="editCities" ref="editCities" class="far fa-edit"></i>
         <i @click="reloadApp" class="fa-sharp fa-solid fa-rotate"></i>
-        <i @click="addCity()" class="far fa-plus"></i>
+        <i @click="addCity" class="far fa-plus"></i>
       </div>
     </nav>
   </header>
@@ -20,6 +20,10 @@ export default {
     },
     reloadApp(){
       location.reload();
+    },
+    editCities(){
+      this.$refs.editCities.classList.toggle('edit-active');
+      this.$emit("edit-city");
     }
   }
 };
@@ -43,6 +47,10 @@ header > nav{
   color: #fff;
   padding: 1.8rem 0;
   justify-content: space-between;
+}
+
+.options > .edit-active{
+  color:rgb(210,75,75);
 }
 
 .options > i{
