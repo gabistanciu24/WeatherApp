@@ -4,7 +4,7 @@
       <span>Daily Weather</span>
       <div class="options">
         <i class="far fa-edit"></i>
-        <i class="fa-sharp fa-solid fa-rotate"></i>
+        <i @click="reloadApp" class="fa-sharp fa-solid fa-rotate"></i>
         <i @click="addCity()" class="far fa-plus"></i>
       </div>
     </nav>
@@ -17,6 +17,9 @@ export default {
   methods:{
     addCity(){
       this.$emit("add-city");
+    },
+    reloadApp(){
+      location.reload();
     }
   }
 };

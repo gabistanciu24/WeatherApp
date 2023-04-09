@@ -34,7 +34,7 @@ export default {
       firebaseDB.onSnapshot(snap =>{
         //firebase real-time event-listener
         snap.docChanges().forEach(async(doc) =>{
-          if(doc.type==='added'){
+          if(doc.type==='added' && !doc.doc.Nd){
             try{
               const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${doc.doc.data().city}&units=metric&APPID=${this.APIkey}`);
               const data = response.data;
@@ -48,6 +48,8 @@ export default {
             }catch(err){
               console.log(err);
             }
+          }else if(doc.type==='added' && doc.doc.Nd){
+            this.cities.push(doc.doc.data());
           }
         })
       })
