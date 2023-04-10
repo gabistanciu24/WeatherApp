@@ -6,6 +6,7 @@
     <div v-else class="weather" :class="{day: isDay, night: isNight}">
       <div class="weather-wrap">
         <CurrentWeather :isDay="isDay" :isNight="isNight" :currentWeather="currentWeather"/>
+        <HourlyWeather :forecast="forecast"/>
       </div>
     </div>
   </div>
@@ -16,11 +17,13 @@
 import axios from 'axios'
 import db from "../firebase/firebaseinit"
 import CurrentWeather from "../components/CurrentWeather"
+import HourlyWeather from '../components/HourlyWeather'
 export default {
     name: 'weather-city',
     props: ['APIkey',"isDay","isNight"],
     components:{
       CurrentWeather,
+      HourlyWeather,
     },
     data(){
       return{
