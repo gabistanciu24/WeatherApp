@@ -1,19 +1,35 @@
 <template>
-  <header class="container add-city">
-    <nav>
-      <span>Daily Weather</span>
-      <div class="options">
-        <i @click="editCities" ref="editCities" class="far fa-edit"></i>
-        <i @click="reloadApp" class="fa-sharp fa-solid fa-rotate"></i>
-        <i @click="addCity" class="far fa-plus"></i>
-      </div>
-    </nav>
-  </header>
+  <div>
+    <header v-if="addCityActive" class="container add-city">
+      <nav>
+        <span>Daily Weather</span>
+        <div class="options">
+          <i @click="editCities" ref="editCities" class="far fa-edit"></i>
+          <i @click="reloadApp" class="fa-sharp fa-solid fa-rotate"></i>
+          <i @click="addCity" class="far fa-plus"></i>
+        </div>
+      </nav>
+    </header>
+    <header v-else class="container" :class="{day: isDay, night: isNight}">
+      <nav>
+        <router-link class="router-link" :to="{name: 'AddCity'}">
+          <i class="fas fa-plus"></i>
+        </router-link>
+          <span>
+            {{ new Date().toLocaleString("en-us",{weekday: "short"})}},
+            {{ new Date().toLocaleString("en-us",{day:"2-digit"})}}
+            {{ new Date().toLocaleString("en-us",{month:"short"})}}
+          </span>
+          <span>&deg; C</span>
+      </nav>
+    </header>
+  </div>
 </template>
 
 <script>
 export default {
   name: "NavigationBar",
+  props: ["addCityActive","isDay","isNight"],
   methods:{
     addCity(){
       this.$emit("add-city");
@@ -42,11 +58,26 @@ header{
 .add-city{
   background-color: #313640;
 }
+
+.day{
+  transition: 500ms ease all;
+  background-color: rgb(59,150,249);
+}
+
+.night{
+  transition: 500ms ease all;
+  background-color: rgb(20,42,95);
+}
+
 header > nav{
   display: flex;
   color: #fff;
   padding: 1.8rem 0;
   justify-content: space-between;
+}
+
+.router-link{
+  color:#fff;
 }
 
 .options > .edit-active{

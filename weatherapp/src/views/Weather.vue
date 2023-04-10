@@ -14,10 +14,14 @@ export default {
         forecast:null,
         currentWeather: null,
         loading: true,
+        currentTime: null,
       }
     },
     created(){
       this.getWeather();
+    },
+    beforeDestroy(){
+      this.$emit("resetDays");
     },
     methods:{
       getWeather() {
@@ -38,12 +42,22 @@ export default {
               })
               .then(() => {
                 this.loading=false;
-                console.log(doc.data().currentWeather.coord.lat);
-                console.log(doc.data().currentWeather.coord.lon);
+                this.getCurrentTime();
               });
           });
         });
     },
+      getCurrentTime(){
+        const dateObject = new Date();
+        this.currentTime = dateObject.getHours();
+        const sunrise = new Date(this.currentWeather.sys.sunrise * 1000).getHours();
+        const sunset = new Date(this.currentWeather.sys.sunset * 1000).getHours();
+        if(this.currentTime > sunrise && this.currentTime < sunset){
+          this.$emit('is-day')
+        }else{
+          this.$emit('is-night');
+        }
+      }
     },
 };
 </script>
