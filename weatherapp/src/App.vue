@@ -1,8 +1,8 @@
 <template>
   <div class="main">
-    <Modal v-if="modalOpen" v-on:close-modal="toggleModal" :APIkey="APIkey"/>
+    <Modal v-if="modalOpen" v-on:close-modal="toggleModal" v-bind:APIkey="APIkey"/>
     <Navigation v-on:add-city="toggleModal" v-on:edit-city="toggleEdit"/>
-    <router-view v-bind:cities="cities" v-bind:edit="edit"/>
+    <router-view v-bind:cities="cities" v-bind:edit="edit" v-bind:APIkey="APIkey"/>
   </div>
 </template>
 
