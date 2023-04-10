@@ -2,7 +2,7 @@
   <div class="main">
     <Modal v-if="modalOpen" v-on:close-modal="toggleModal" v-bind:APIkey="APIkey"/>
     <Navigation v-on:add-city="toggleModal" v-on:edit-city="toggleEdit" :addCityActive="addCityActive" :isDay="isDay" :isNight="isNight"/>
-    <router-view v-bind:cities="cities" v-bind:edit="edit" v-bind:APIkey="APIkey" v-on:is-day="dayTime" v-on:is-night="nightTime" v-on:resetDays="resetDays"/>
+    <router-view :isDay="isDay" :isNight="isNight" v-bind:cities="cities" v-bind:edit="edit" v-bind:APIkey="APIkey" v-on:is-day="dayTime" v-on:is-night="nightTime" v-on:resetDays="resetDays"/>
   </div>
 </template>
 
@@ -101,5 +101,17 @@ export default {
   padding:0;
   box-sizing: border-box;
   font-family: "Quicksand",sans-serif;
+}
+
+.day{
+  transition: 500ms ease all;
+  background-color: rgb(59,150,249);
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+}
+
+.night{
+  transition: 500ms ease all;
+  background-color: rgb(20,42,95);
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
 }
 </style>
