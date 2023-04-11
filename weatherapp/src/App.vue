@@ -22,7 +22,7 @@ export default {
     return{
       isDay :null,
       isNight:null,
-      APIkey: "3c4fa813706a1e42f0f4e99768f6e62a",
+      APIkey: "15816ab77b3f29e2f9dc38c800577c3a",
       cities:[],
       modalOpen: null,
       edit:null,

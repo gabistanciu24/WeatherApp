@@ -4,6 +4,7 @@
       <nav>
         <span>Daily Weather</span>
         <div class="options">
+          <i @click="addCurrentCity" class="fa-solid fa-location-crosshairs"></i>
           <i @click="editCities" ref="editCities" class="far fa-edit"></i>
           <i @click="reloadApp" class="fa-sharp fa-solid fa-rotate"></i>
           <i @click="addCity" class="far fa-plus"></i>
@@ -76,9 +77,6 @@ header > nav{
 
 .options > i{
   font-size: 1.1rem;
-}
-
-.options > i:nth-child(2),i:nth-child(3){
   margin-left: 1rem;
 }
 

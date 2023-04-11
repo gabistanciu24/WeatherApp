@@ -12,7 +12,6 @@ export default {
   name: 'AddCity',
   props:['cities','edit'],
   created(){
-    console.log(this.cities);
   },
   components: {
     City
