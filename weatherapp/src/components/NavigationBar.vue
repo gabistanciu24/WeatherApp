@@ -4,7 +4,7 @@
       <nav>
         <span>Daily Weather</span>
         <div class="options">
-          <i @click="addCurrentCity" class="fa-solid fa-location-crosshairs"></i>
+          <i @click="addCurrentLocation" class="fa-solid fa-location-crosshairs"></i>
           <i @click="editCities" ref="editCities" class="far fa-edit"></i>
           <i @click="reloadApp" class="fa-sharp fa-solid fa-rotate"></i>
           <i @click="addCity" class="far fa-plus"></i>
@@ -28,9 +28,21 @@
 </template>
 
 <script>
+import axios from 'axios';
+import db from "../firebase/firebaseinit";
 export default {
   name: "NavigationBar",
-  props: ["addCityActive","isDay","isNight"],
+  props: ["addCityActive","isDay","isNight","APIkey"],
+  data(){
+    return{
+      lat:'',
+      long:'',
+      currentLocation:'',
+    }
+  },
+  created(){
+    this.addCurrentCity();
+  },
   methods:{
     addCity(){
       this.$emit("add-city");
@@ -41,8 +53,38 @@ export default {
     editCities(){
       this.$refs.editCities.classList.toggle('edit-active');
       this.$emit("edit-city");
+    },
+    addCurrentCity(){
+      const success =(position)=>{
+        //console.log(position);
+        this.lat=position.coords.latitude;
+        this.long=position.coords.longitude;
+        //console.log(this.lat);
+        //console.log(this.long);
+        axios.get(`http://api.openweathermap.org/geo/1.0/reverse?lat=${this.lat}&lon=${this.long}&limit=1&appid=15816ab77b3f29e2f9dc38c800577c3a`)
+        .then(
+          response=>{
+            this.currentLocation=response.data[0].name;
+            //console.log(this.currentLocation);
+          }
+          ).catch(error=>{console.log(error)})
+      }
+      const error =()=>{
+        console.log('error');
+      }
+      navigator.geolocation.getCurrentPosition(success,error);
+    },
+    async addCurrentLocation(){
+        const res=await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.currentLocation}&units=metric&appid=15816ab77b3f29e2f9dc38c800577c3a`);
+        const data= await res.data;
+        db.collection('cities').doc().set({
+          city: this.currentLocation,
+          currentWeather: data
+        }).then(()=>{
+          //
+        })
     }
-  }
+  },
 };
 </script>
 
