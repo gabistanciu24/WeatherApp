@@ -1,7 +1,10 @@
 <template>
-  <div @click="gotoWeather" class="city">
+  <div class="city">
     <i v-if="edit" @click="removeCity" class="far fa-trash-alt edit" ref="edit"></i>
-    <span>{{this.city.city}}</span>
+    <span class="city-name">{{this.city.city}}</span>
+    <p>{{this.realFeel}}</p>
+    <p>Max: {{this.max_Temp}}&deg; C</p>
+    <p>Min: {{this.min_Temp}}&deg; C</p>
     <div class="weather">
       <span>{{Math.round(this.city.currentWeather.main.temp)}}&deg;</span>
       <img :src="require(`../../public/props/conditions/${this.city.currentWeather.weather[0].icon}.svg`)" alt="">
@@ -19,10 +22,15 @@ export default {
   name:"city-component",
   props: ['city','edit'],
   created(){
+    this.getMinMaxTemp();
+    this.getFeel();
   },
   data(){
     return{
       id:null,
+      max_Temp:0,
+      min_Temp:0,
+      realFeel:'',
     }
   },
   methods:{
@@ -41,6 +49,13 @@ export default {
       }else{
         this.$router.push({name: "Weather",params:{city: this.city.city}});
       }
+    },
+    getMinMaxTemp(){
+      this.max_Temp=this.city.currentWeather.main.temp_max;
+      this.min_Temp=this.city.currentWeather.main.temp_min;
+    },
+    getFeel(){
+      this.realFeel=this.city.currentWeather.weather[0].description;
     }
   }
 }
@@ -49,19 +64,22 @@ export default {
 <style>
 .city{
   display: flex;
+  max-width: 300px;
+  height: auto;
+  text-align:center;
   position: relative;
   flex-direction: column;
   padding:1.2rem;
   flex-basis: 50%;
   min-height: 13rem;
   color:#fff;
-  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.02);
 }
 
 .city > .edit{
   border-radius: 0px 15px 0 0;
-  border: 10px solid rgb(77,77,77);
-  background-color: rgb(77,77,77);
+  border: 10px solid #2C74B3;
+  background-color: #2C74B3;
   z-index:1;
   font-size: 1.3rem;
   position: absolute;
@@ -73,8 +91,18 @@ export default {
   z-index: 1;
   text-transform: capitalize;
   display: block;
-  font-size: 1.7rem;
-  font-weight: 600;
+  font-size: 2rem;
+  font-weight: 800;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+.city > p{
+  z-index: 1;
+  text-transform: capitalize;
+  display: block;
+  font-size: 1rem;
+  font-weight: 800;
 }
 
 .city > .weather{

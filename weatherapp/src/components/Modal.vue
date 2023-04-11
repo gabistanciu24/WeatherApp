@@ -60,7 +60,7 @@ export default {
   border-radius: 8px;
   width:80%;
   padding:1.3rem;
-  background-color: #31363d;
+  background-color: #144272;
   box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
 }
 
@@ -83,7 +83,7 @@ export default {
 }
 
 .modal-wrap > button{
-  background-color:#222325;
+  background-color:#0A2647;
   color: #fff;
   padding: 0.4rem 1.3rem;
   border-radius: 8px;

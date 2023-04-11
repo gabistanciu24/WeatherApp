@@ -99,7 +99,7 @@ header{
   box-shadow: 0px -2px 14px 2px rgba(0,0,0,0.39);
 }
 .add-city{
-  background-color: #313640;
+  background-color: #0A2647;
 }
 
 header > nav{
