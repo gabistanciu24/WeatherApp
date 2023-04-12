@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header v-if="addCityActive" class="container add-city">
+    <header v-if="addCityActive" class="container add-city" :class="{navDay:isday}">
       <nav>
         <span>Daily Weather</span>
         <div class="options">
@@ -38,10 +38,13 @@ export default {
       lat:'',
       long:'',
       currentLocation:'',
+      isday:false,
+      hour:0,
     }
   },
   created(){
     this.addCurrentCity();
+    this.getHour();
   },
   methods:{
     addCity(){
@@ -83,6 +86,17 @@ export default {
         }).then(()=>{
           //
         })
+    },
+    getHour(){
+      let today = new Date();
+      this.hour=this.addZero(today.getHours());
+      console.log(this.hour);
+      if(this.hour >= 7 && this.hour <=23){
+        this.isday=!this.isday;
+      }
+    },
+    addZero(num){
+      return num<10 ? `0${num}`:num;
     }
   },
 };
@@ -124,5 +138,9 @@ header > nav{
 
 span{
   font-weight: 600;
+}
+
+.navDay{
+  background-color: #F0997D;
 }
 </style>

@@ -56,7 +56,8 @@ export default {
     },
     getFeel(){
       this.realFeel=this.city.currentWeather.weather[0].description;
-    }
+    },
+
   }
 }
 </script>
